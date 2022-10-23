@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "misticraft",
+  "version": "${version}",
+  "name": "Misticraft",
+  "description": "",
+  "authors": [
+    "FrancescoZucca"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/misticraft/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "mod.francescozucca.misticraft.client.MisticraftClient"
+    ],
+    "main": [
+      "mod.francescozucca.misticraft.Misticraft"
+    ],
+    "fabric-datagen": [
+      "mod.francescozucca.misticraft.datagen.Datagen"
+    ]
+  },
+  "mixins": [
+    "misticraft.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.10",
+    "fabric": "*",
+    "minecraft": "1.19.2"
+  }
+}

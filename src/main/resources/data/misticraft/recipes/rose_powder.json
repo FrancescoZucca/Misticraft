@@ -1,0 +1,8 @@
+{
+  "type": "misticraft:mortar",
+  "input": {
+    "item": "minecraft:poppy"
+  },
+  "output": "misticraft:rose_powder",
+  "amount": 3
+}
