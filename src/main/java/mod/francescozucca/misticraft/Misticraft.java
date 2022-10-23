@@ -7,7 +7,7 @@ import mod.francescozucca.misticraft.recipes.MortarRecipeSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.AbstractBlock;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
@@ -18,23 +18,31 @@ import net.minecraft.util.registry.Registry;
 public class Misticraft implements ModInitializer {
 
     public static String MODID = "misticraft";
-    public static ItemGroup MISTICRAFT_IG = FabricItemGroupBuilder.build(
+    public static ItemGroup MISTICRAFT_IG;
+
+    public static Item ROSE_INCENSE;
+    public static Item ROSE_POWDER;
+    public static Item PESTLE;
+
+
+    public static Block MORTAR;
+    public static BlockEntityType<MortarBlockEntity> MORTAR_BET;
+
+    @Override
+    public void onInitialize() {
+
+        MISTICRAFT_IG =  FabricItemGroupBuilder.build(
                 id("general"),
                 () -> new ItemStack(Items.BREWING_STAND)
         );
 
-    public static Item ROSE_INCENSE = registerItem("rose_incense");
-    public static Item ROSE_POWDER = registerItem("rose_powder");
-    public static Item PESTLE = registerItem("pestle");
-
-
-    public static Block MORTAR = registerBlock(new Mortar(FabricBlockSettings.of(Material.STONE)), "mortar");
-    public static BlockEntityType<MortarBlockEntity> MORTAR_BET = BlockEntityType.Builder.create(MortarBlockEntity::new, MORTAR).build(null);
-
-    @Override
-    public void onInitialize() {
         Registry.register(Registry.RECIPE_SERIALIZER, MortarRecipeSerializer.ID, MortarRecipeSerializer.INSTANCE);
         Registry.register(Registry.RECIPE_TYPE, id(MortarRecipe.Type.ID), MortarRecipe.Type.INSTANCE);
+        ROSE_INCENSE = registerItem("rose_incense");
+        ROSE_POWDER = registerItem("rose_powder");
+        PESTLE = registerItem("pestle");
+        MORTAR = registerBlock(new Mortar(FabricBlockSettings.of(Material.STONE)), "mortar");
+        MORTAR_BET = Registry.register(Registry.BLOCK_ENTITY_TYPE, id("mortar"), FabricBlockEntityTypeBuilder.create(MortarBlockEntity::new, MORTAR).build(null));
     }
 
     private static Block registerBlock(Block block, String id, Item item){

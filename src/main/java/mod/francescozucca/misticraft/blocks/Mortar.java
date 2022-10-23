@@ -13,6 +13,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
@@ -30,31 +31,29 @@ import java.util.Optional;
 public class Mortar extends BlockWithEntity {
 
     public static final int COOLDOWN_TIME = 10;
-
-    public static final IntProperty COOLDOWN = IntProperty.of("cooldown", 0, COOLDOWN_TIME);
     public Mortar(Settings settings) {
         super(settings);
-        setDefaultState(getStateManager().getDefaultState().with(COOLDOWN, 0));
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if(world.getBlockEntity(pos) instanceof MortarBlockEntity mbe) {
+        if(world.getBlockEntity(pos) instanceof MortarBlockEntity mbe && !world.isClient()) {
 
             BlockState curState = world.getBlockState(pos);
 
-            if(player.getStackInHand(hand).getItem() == Misticraft.PESTLE) {
+            if(mbe.cooldown == 0 && player.getStackInHand(hand).getItem() == Misticraft.PESTLE) {
 
                 Optional<MortarRecipe> match = world.getRecipeManager().getFirstMatch(MortarRecipe.Type.INSTANCE, mbe, world);
-                if(curState.get(COOLDOWN) == 0 && match.isPresent()) {
-                    player.playSound(SoundEvents.BLOCK_GRINDSTONE_USE, 1, 1);
-                    world.setBlockState(pos, curState.with(COOLDOWN, COOLDOWN_TIME));
+                if(match.isPresent()) {
+                    world.playSound(player, pos, SoundEvents.BLOCK_GRINDSTONE_USE, SoundCategory.BLOCKS, 1, 1);
+                    mbe.cooldown = COOLDOWN_TIME;
                     player.getInventory().offerOrDrop(match.get().getOutput().copy());
                     mbe.getStack(0).decrement(1);
                     world.updateListeners(pos, curState, world.getBlockState(pos), Block.NOTIFY_LISTENERS);
+                    mbe.markDirty();
                     return ActionResult.SUCCESS;
                 }
-            }else{
+            }else if(player.getStackInHand(hand).getItem() != Misticraft.PESTLE){
                 if(mbe.getStack(0).isEmpty()){
                     ItemStack is = player.getStackInHand(hand);
                     mbe.setStack(0, is);
@@ -64,10 +63,11 @@ public class Mortar extends BlockWithEntity {
                     mbe.setStack(0, ItemStack.EMPTY);
                 }
                 world.updateListeners(pos, curState, world.getBlockState(pos), Block.NOTIFY_LISTENERS);
+                mbe.markDirty();
                 return ActionResult.SUCCESS;
             }
         }
-        return ActionResult.PASS;
+        return ActionResult.SUCCESS;
     }
 
     @Nullable
@@ -84,11 +84,6 @@ public class Mortar extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, Misticraft.MORTAR_BET, (world1, pos1, state1, be) -> MortarBlockEntity.tick(world1, pos1, state1, be));
-    }
-
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(COOLDOWN);
+        return checkType(type, Misticraft.MORTAR_BET, MortarBlockEntity::tick);
     }
 }

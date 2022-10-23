@@ -5,6 +5,7 @@ import mod.francescozucca.misticraft.blocks.Mortar;
 import mod.francescozucca.misticraft.util.ImplementedInventory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
@@ -20,9 +21,12 @@ public class MortarBlockEntity extends BlockEntity implements ImplementedInvento
 
     //TODO fix cooldown
 
+    public int cooldown;
+
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
     public MortarBlockEntity(BlockPos pos, BlockState state) {
         super(Misticraft.MORTAR_BET, pos, state);
+        cooldown = 0;
     }
 
     @Override
@@ -42,11 +46,24 @@ public class MortarBlockEntity extends BlockEntity implements ImplementedInvento
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, MortarBlockEntity be) {
-        int cooldown = state.get(Mortar.COOLDOWN);
-        if(cooldown > 0){
-            world.setBlockState(pos, state.with(Mortar.COOLDOWN, cooldown - 1));
-        }else if (cooldown < 0){
-            world.setBlockState(pos, state.with(Mortar.COOLDOWN, 0));
+        if( ((MortarBlockEntity)(world.getBlockEntity(pos))).cooldown > 0){
+            ((MortarBlockEntity)(world.getBlockEntity(pos))).cooldown = ((MortarBlockEntity)(world.getBlockEntity(pos))).cooldown - 1;
+        }else if (((MortarBlockEntity)(world.getBlockEntity(pos))).cooldown < 0){
+            ((MortarBlockEntity)(world.getBlockEntity(pos))).cooldown = 0;
         }
+    }
+
+    @Override
+    protected void writeNbt(NbtCompound nbt) {
+        nbt.putInt("cooldown", this.cooldown);
+        Inventories.writeNbt(nbt, items);
+        super.writeNbt(nbt);
+    }
+
+    @Override
+    public void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
+        Inventories.readNbt(nbt, items);
+        this.cooldown = nbt.getInt("cooldown");
     }
 }
