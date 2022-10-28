@@ -18,7 +18,11 @@ public class MortarBlockEntityRenderer implements BlockEntityRenderer<MortarBloc
 
     @Override
     public void render(MortarBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        ItemStack stack = entity.getStack(0).copy();
+        ItemStack stack = entity.getStack(0);
+
+        if(stack.getCount() == 0){
+            stack = ItemStack.EMPTY;
+        }
 
         matrices.push();
         double offset = Math.sin((entity.getWorld().getTime() + tickDelta) / 8.0) / 4.0;
