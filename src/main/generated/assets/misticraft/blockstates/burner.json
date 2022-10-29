@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "misticraft:block/burner"
+    },
+    "lit=true": {
+      "model": "misticraft:block/burner_lit"
+    }
+  }
+}

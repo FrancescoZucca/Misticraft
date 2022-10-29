@@ -1,8 +1,8 @@
 package mod.francescozucca.misticraft.client.renderer;
 
 import mod.francescozucca.misticraft.Misticraft;
-import mod.francescozucca.misticraft.blocks.Mortar;
-import mod.francescozucca.misticraft.blocks.entity.MortarBlockEntity;
+import mod.francescozucca.misticraft.block.Mortar;
+import mod.francescozucca.misticraft.block.entity.MortarBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;

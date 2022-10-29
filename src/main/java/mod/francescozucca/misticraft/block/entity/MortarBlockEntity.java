@@ -1,4 +1,4 @@
-package mod.francescozucca.misticraft.blocks.entity;
+package mod.francescozucca.misticraft.block.entity;
 
 import mod.francescozucca.misticraft.Misticraft;
 import mod.francescozucca.misticraft.util.ImplementedInventory;
@@ -10,7 +10,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

@@ -1,30 +1,26 @@
-package mod.francescozucca.misticraft.blocks;
+package mod.francescozucca.misticraft.block;
 
 import mod.francescozucca.misticraft.Misticraft;
-import mod.francescozucca.misticraft.blocks.entity.MortarBlockEntity;
-import mod.francescozucca.misticraft.recipes.MortarRecipe;
+import mod.francescozucca.misticraft.block.entity.MortarBlockEntity;
+import mod.francescozucca.misticraft.recipe.MortarRecipe;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.tick.TickScheduler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;

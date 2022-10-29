@@ -1,4 +1,5 @@
-// 1.19.2	2022-10-29T15:49:17.983365569	Models
+// 1.19.2	2022-10-29T23:06:16.758133284	Models
+f87fa439c248e22a71b8fa9d8d9fbbbd5f598c67 assets/misticraft/blockstates/burner.json
 d14259f717dd763471a79eb82ee03eab1f471c6a assets/misticraft/models/item/pestle.json
 8824a94aab4b485ed54dc785dfd21831f1f3a49f assets/misticraft/blockstates/mortar.json
 a70847e2526eb06596bd413628c0439798270b8c assets/misticraft/models/item/rose_incense.json
@@ -6,3 +7,4 @@ a8f8d2f9f4023455a77409214c59651b47a77751 assets/misticraft/models/item/rose_powd
 22dc7a2e9a9a4542866435f061549f322ef92c80 assets/misticraft/models/item/mortar.json
 ac480935018439e976f845ba367e57b3419354ca assets/misticraft/models/item/coal_powder.json
 a6ef4c0102c258ff840576a72d428b5bc660f844 assets/misticraft/models/item/charcoal_powder.json
+8a8281a411bc7fe256f7c2520e3bb8fafab541b6 assets/misticraft/models/item/burner.json

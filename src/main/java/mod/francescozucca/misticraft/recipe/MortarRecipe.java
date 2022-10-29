@@ -1,7 +1,7 @@
-package mod.francescozucca.misticraft.recipes;
+package mod.francescozucca.misticraft.recipe;
 
 import com.google.gson.JsonObject;
-import mod.francescozucca.misticraft.blocks.entity.MortarBlockEntity;
+import mod.francescozucca.misticraft.block.entity.MortarBlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;

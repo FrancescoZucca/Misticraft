@@ -1,4 +1,4 @@
-package mod.francescozucca.misticraft.recipes;
+package mod.francescozucca.misticraft.recipe;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

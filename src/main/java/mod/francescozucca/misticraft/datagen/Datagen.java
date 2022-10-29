@@ -1,7 +1,8 @@
 package mod.francescozucca.misticraft.datagen;
 
 import mod.francescozucca.misticraft.Misticraft;
-import mod.francescozucca.misticraft.blocks.Mortar;
+import mod.francescozucca.misticraft.block.Burner;
+import mod.francescozucca.misticraft.block.Mortar;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -45,6 +46,12 @@ public class Datagen implements DataGeneratorEntrypoint {
                     .coordinate(BlockStateVariantMap.create(Mortar.EMPTY)
                             .register(true, BlockStateVariant.create().put(VariantSettings.MODEL, Misticraft.id("block/mortar")))
                             .register(false, BlockStateVariant.create().put(VariantSettings.MODEL, Misticraft.id("block/mortar")))
+                    )
+            );
+            blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(Misticraft.BURNER)
+                    .coordinate(BlockStateVariantMap.create(Burner.LIT)
+                            .register(true, BlockStateVariant.create().put(VariantSettings.MODEL, Misticraft.id("block/burner_lit")))
+                            .register(false, BlockStateVariant.create().put(VariantSettings.MODEL, Misticraft.id("block/burner")))
                     )
             );
         }
