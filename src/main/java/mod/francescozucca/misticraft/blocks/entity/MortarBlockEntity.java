@@ -1,7 +1,6 @@
 package mod.francescozucca.misticraft.blocks.entity;
 
 import mod.francescozucca.misticraft.Misticraft;
-import mod.francescozucca.misticraft.blocks.Mortar;
 import mod.francescozucca.misticraft.util.ImplementedInventory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -18,8 +17,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class MortarBlockEntity extends BlockEntity implements ImplementedInventory {
-
-    //TODO fix cooldown
 
     public int cooldown;
 

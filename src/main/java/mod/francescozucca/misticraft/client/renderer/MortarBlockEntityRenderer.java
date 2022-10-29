@@ -1,5 +1,7 @@
 package mod.francescozucca.misticraft.client.renderer;
 
+import mod.francescozucca.misticraft.Misticraft;
+import mod.francescozucca.misticraft.blocks.Mortar;
 import mod.francescozucca.misticraft.blocks.entity.MortarBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
@@ -18,19 +20,23 @@ public class MortarBlockEntityRenderer implements BlockEntityRenderer<MortarBloc
 
     @Override
     public void render(MortarBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        if(!(entity.getWorld().getBlockEntity(entity.getPos()) instanceof MortarBlockEntity) || entity.getWorld().getBlockState(entity.getPos()).getBlock() != Misticraft.MORTAR) return;
+
         ItemStack stack = entity.getStack(0);
 
-        if(stack.getCount() == 0){
+        boolean empty = entity.getWorld().getBlockState(entity.getPos()).get(Mortar.EMPTY);
+
+        if(empty){
             stack = ItemStack.EMPTY;
         }
 
         matrices.push();
-        double offset = Math.sin((entity.getWorld().getTime() + tickDelta) / 8.0) / 4.0;
-        matrices.translate(0.5, 0.75 + offset, 0.5);
+        matrices.translate(0.5, 0.85, 0.5);
         matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((entity.getWorld().getTime() + tickDelta) * 4f));
 
         int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
-        MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
+        if(!stack.isEmpty())
+            MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
 
         matrices.pop();
     }

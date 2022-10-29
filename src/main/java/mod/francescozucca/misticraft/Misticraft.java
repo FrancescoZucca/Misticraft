@@ -23,6 +23,8 @@ public class Misticraft implements ModInitializer {
     public static Item ROSE_INCENSE;
     public static Item ROSE_POWDER;
     public static Item PESTLE;
+    public static Item COAL_POWDER;
+    public static Item CHARCOAL_POWDER;
 
 
     public static Block MORTAR;
@@ -42,6 +44,8 @@ public class Misticraft implements ModInitializer {
         ROSE_POWDER = registerItem("rose_powder");
         PESTLE = registerItem("pestle");
         MORTAR = registerBlock(new Mortar(FabricBlockSettings.of(Material.STONE)), "mortar");
+        CHARCOAL_POWDER = registerItem("charcoal_powder");
+        COAL_POWDER = registerItem("coal_powder");
         MORTAR_BET = Registry.register(Registry.BLOCK_ENTITY_TYPE, id("mortar"), FabricBlockEntityTypeBuilder.create(MortarBlockEntity::new, MORTAR).build(null));
     }
 

@@ -13,6 +13,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -30,9 +31,11 @@ import java.util.Optional;
 
 public class Mortar extends BlockWithEntity {
 
+    public static final BooleanProperty EMPTY = BooleanProperty.of("empty");
     public static final int COOLDOWN_TIME = 10;
     public Mortar(Settings settings) {
         super(settings);
+        setDefaultState(getDefaultState().with(EMPTY, true));
     }
 
     @Override
@@ -51,7 +54,6 @@ public class Mortar extends BlockWithEntity {
                     mbe.getStack(0).decrement(1);
                     world.updateListeners(pos, curState, world.getBlockState(pos), Block.NOTIFY_LISTENERS);
                     mbe.markDirty();
-                    return ActionResult.SUCCESS;
                 }
             }else if(player.getStackInHand(hand).getItem() != Misticraft.PESTLE){
                 if(mbe.getStack(0).isEmpty()){
@@ -64,7 +66,10 @@ public class Mortar extends BlockWithEntity {
                 }
                 world.updateListeners(pos, curState, world.getBlockState(pos), Block.NOTIFY_LISTENERS);
                 mbe.markDirty();
-                return ActionResult.SUCCESS;
+            }
+
+            if(state.get(EMPTY) ^ mbe.isEmpty()){
+                world.setBlockState(pos, state.with(EMPTY, mbe.isEmpty()));
             }
         }
         return ActionResult.SUCCESS;
@@ -80,15 +85,19 @@ public class Mortar extends BlockWithEntity {
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
     }
-
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.cuboid(.25f/2f, 0f, .25f/2f, 0.5f+.25f/2f, 0.75f, 0.5f+0.25f/2f);
+        return VoxelShapes.cuboid(.125f, 0f, .125f, 0.875f, 0.75f, 0.875f);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return checkType(type, Misticraft.MORTAR_BET, MortarBlockEntity::tick);
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(EMPTY);
     }
 }

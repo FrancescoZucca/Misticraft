@@ -1,0 +1,8 @@
+{
+  "type": "misticraft:mortar",
+  "input": {
+    "item": "minecraft:charcoal"
+  },
+  "output": "misticraft:charcoal_powder",
+  "amount": 3
+}

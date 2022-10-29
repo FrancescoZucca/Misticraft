@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "empty=false": {
+      "model": "misticraft:block/mortar"
+    },
+    "empty=true": {
+      "model": "misticraft:block/mortar"
+    }
+  }
+}
