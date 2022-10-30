@@ -16,6 +16,6 @@ public class RoseIncenseStatusEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        entity.heal(1.5f*(0.75f*amplifier));
+        entity.heal(.75f+(0.3f*amplifier));
     }
 }

@@ -13,7 +13,7 @@ public class RoseIncense extends Incense{
 
     @Override
     public void applyEffect(LivingEntity entity, World world) {
-        entity.addStatusEffect(new StatusEffectInstance(Misticraft.ROSE_INCENSE_SE, 5, 1));
+        entity.addStatusEffect(new StatusEffectInstance(Misticraft.ROSE_INCENSE_SE, 5, 0));
     }
 
     @Override

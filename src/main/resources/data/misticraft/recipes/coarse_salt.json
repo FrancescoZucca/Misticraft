@@ -1,0 +1,8 @@
+{
+  "type": "misticraft:mortar",
+  "input": {
+    "item": "misticraft:salt_crystal"
+  },
+  "output": "misticraft:coarse_salt",
+  "amount": 1
+}

@@ -1,10 +1,15 @@
-// 1.19.2	2022-10-29T23:06:16.758133284	Models
+// 1.19.2	2022-10-30T23:18:44.333647455	Models
+1db5d578375cab365b6ac34424a09535dece1379 assets/misticraft/models/item/salt_ore.json
+a70847e2526eb06596bd413628c0439798270b8c assets/misticraft/models/item/rose_incense.json
+21157a5ab4f92a365f392f238587f8eeec27a662 assets/misticraft/models/block/salt_ore.json
+a6ef4c0102c258ff840576a72d428b5bc660f844 assets/misticraft/models/item/charcoal_powder.json
+8a8281a411bc7fe256f7c2520e3bb8fafab541b6 assets/misticraft/models/item/burner.json
+739f4c16d4e61421b43681e5fea5bfa8c302a731 assets/misticraft/blockstates/salt_ore.json
 f87fa439c248e22a71b8fa9d8d9fbbbd5f598c67 assets/misticraft/blockstates/burner.json
 d14259f717dd763471a79eb82ee03eab1f471c6a assets/misticraft/models/item/pestle.json
+8b2e38bb8468714fc81f8ee2fac73324f474faa6 assets/misticraft/models/item/coarse_salt.json
 8824a94aab4b485ed54dc785dfd21831f1f3a49f assets/misticraft/blockstates/mortar.json
-a70847e2526eb06596bd413628c0439798270b8c assets/misticraft/models/item/rose_incense.json
+2b650686b89d2690ca1455560267b8137d6f0ea9 assets/misticraft/models/item/salt_crystal.json
 a8f8d2f9f4023455a77409214c59651b47a77751 assets/misticraft/models/item/rose_powder.json
 22dc7a2e9a9a4542866435f061549f322ef92c80 assets/misticraft/models/item/mortar.json
 ac480935018439e976f845ba367e57b3419354ca assets/misticraft/models/item/coal_powder.json
-a6ef4c0102c258ff840576a72d428b5bc660f844 assets/misticraft/models/item/charcoal_powder.json
-8a8281a411bc7fe256f7c2520e3bb8fafab541b6 assets/misticraft/models/item/burner.json

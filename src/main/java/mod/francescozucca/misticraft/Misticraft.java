@@ -9,10 +9,13 @@ import mod.francescozucca.misticraft.item.RoseIncense;
 import mod.francescozucca.misticraft.recipe.MortarRecipe;
 import mod.francescozucca.misticraft.recipe.MortarRecipeSerializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
@@ -20,7 +23,18 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.*;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.YOffset;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.placementmodifier.CountPlacementModifier;
+import net.minecraft.world.gen.placementmodifier.HeightRangePlacementModifier;
+import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
+
+import java.util.Arrays;
 
 public class Misticraft implements ModInitializer {
 
@@ -43,6 +57,13 @@ public class Misticraft implements ModInitializer {
     public static Block BURNER;
     public static BlockEntityType<BurnerBlockEntity> BURNER_BET;
 
+    public static Block SALT_ORE;
+    public static Item SALT_CRYSTAL;
+    public static Item COARSE_SALT;
+    public static ConfiguredFeature<?, ?> SALT_ORE_CF;
+
+    public static PlacedFeature SALT_ORE_PF;
+
     @Override
     public void onInitialize() {
 
@@ -64,6 +85,32 @@ public class Misticraft implements ModInitializer {
         MORTAR_BET = Registry.register(Registry.BLOCK_ENTITY_TYPE, id("mortar"), FabricBlockEntityTypeBuilder.create(MortarBlockEntity::new, MORTAR).build(null));
         BURNER = registerBlock(new Burner(FabricBlockSettings.of(Material.METAL)), "burner");
         BURNER_BET = Registry.register(Registry.BLOCK_ENTITY_TYPE, id("burner"), FabricBlockEntityTypeBuilder.create(BurnerBlockEntity::new, BURNER).build(null));
+        SALT_CRYSTAL = registerItem("salt_crystal");
+        COARSE_SALT = registerItem("coarse_salt");
+        SALT_ORE = registerBlock(new Block(AbstractBlock.Settings.of(Material.STONE)), "salt_ore");
+
+        SALT_ORE_CF = new ConfiguredFeature<>(
+                Feature.ORE,
+                new OreFeatureConfig(
+                        OreConfiguredFeatures.STONE_ORE_REPLACEABLES,
+                        SALT_ORE.getDefaultState(),
+                        5
+                )
+        );
+
+        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, id("salt_ore"), SALT_ORE_CF);
+
+        SALT_ORE_PF = new PlacedFeature(
+                RegistryEntry.of(SALT_ORE_CF),
+                Arrays.asList(
+                        CountPlacementModifier.of(10),
+                        SquarePlacementModifier.of(),
+                        HeightRangePlacementModifier.uniform(YOffset.getBottom(), YOffset.fixed(64))
+                )
+        );
+        Registry.register(BuiltinRegistries.PLACED_FEATURE, id("salt_ore"), SALT_ORE_PF);
+
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, RegistryKey.of(Registry.PLACED_FEATURE_KEY, id("salt_ore")));
     }
 
     private static Block registerBlock(Block block, String id, Item item){
