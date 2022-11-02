@@ -3,6 +3,7 @@ package mod.francescozucca.misticraft.datagen;
 import com.google.common.collect.ImmutableList;
 import mod.francescozucca.misticraft.Misticraft;
 import mod.francescozucca.misticraft.block.Burner;
+import mod.francescozucca.misticraft.block.Candle;
 import mod.francescozucca.misticraft.block.Mortar;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -59,6 +60,18 @@ public class Datagen implements DataGeneratorEntrypoint {
                     )
             );
             blockStateModelGenerator.registerSimpleCubeAll(Misticraft.SALT_ORE);
+            blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(Misticraft.CANDLE)
+                    .coordinate(BlockStateVariantMap.create(Candle.CONSUMED)
+                            .register(0, BlockStateVariant.create().put(VariantSettings.MODEL, Misticraft.id("block/candle")))
+                            .register(1, BlockStateVariant.create().put(VariantSettings.MODEL, Misticraft.id("block/candle_1")))
+                            .register(2, BlockStateVariant.create().put(VariantSettings.MODEL, Misticraft.id("block/candle_2")))
+                            .register(3, BlockStateVariant.create().put(VariantSettings.MODEL, Misticraft.id("block/candle_3")))
+                            .register(4, BlockStateVariant.create().put(VariantSettings.MODEL, Misticraft.id("block/candle_4")))
+                            .register(5, BlockStateVariant.create().put(VariantSettings.MODEL, Misticraft.id("block/candle_5")))
+                            .register(6, BlockStateVariant.create().put(VariantSettings.MODEL, Misticraft.id("block/candle_6")))
+                            .register(7, BlockStateVariant.create().put(VariantSettings.MODEL, Misticraft.id("block/candle_7")))
+                    )
+            );
         }
 
         @Override

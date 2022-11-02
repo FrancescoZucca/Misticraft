@@ -2,7 +2,9 @@ package mod.francescozucca.misticraft;
 
 import mod.francescozucca.misticraft.block.Burner;
 import mod.francescozucca.misticraft.block.Mortar;
+import mod.francescozucca.misticraft.block.WhiteCandle;
 import mod.francescozucca.misticraft.block.entity.BurnerBlockEntity;
+import mod.francescozucca.misticraft.block.entity.CandleEntity;
 import mod.francescozucca.misticraft.block.entity.MortarBlockEntity;
 import mod.francescozucca.misticraft.effect.RoseIncenseStatusEffect;
 import mod.francescozucca.misticraft.item.RoseIncense;
@@ -17,6 +19,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.effect.StatusEffect;
@@ -64,6 +67,9 @@ public class Misticraft implements ModInitializer {
 
     public static PlacedFeature SALT_ORE_PF;
 
+    public static Block CANDLE;
+    public static BlockEntityType<CandleEntity> CANDLE_BET;
+
     @Override
     public void onInitialize() {
 
@@ -87,6 +93,8 @@ public class Misticraft implements ModInitializer {
         BURNER_BET = Registry.register(Registry.BLOCK_ENTITY_TYPE, id("burner"), FabricBlockEntityTypeBuilder.create(BurnerBlockEntity::new, BURNER).build(null));
         SALT_CRYSTAL = registerItem("salt_crystal");
         COARSE_SALT = registerItem("coarse_salt");
+        CANDLE = registerBlock(new WhiteCandle(FabricBlockSettings.of(Material.WOOD)), "white_candle");
+        CANDLE_BET = Registry.register(Registry.BLOCK_ENTITY_TYPE, id("candle"), FabricBlockEntityTypeBuilder.create(CandleEntity::new, CANDLE).build(null));
         SALT_ORE = registerBlock(new Block(AbstractBlock.Settings.of(Material.STONE)), "salt_ore");
 
         SALT_ORE_CF = new ConfiguredFeature<>(
